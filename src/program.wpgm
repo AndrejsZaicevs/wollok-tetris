@@ -1,0 +1,13 @@
+import wollok.game.*
+import clases.*
+import objects.*
+
+program tetris {
+
+	game.width(23)
+	game.height(22)
+	game.cellSize(36)
+	game.boardGround("negro.png")
+	logicaPrincipal.iniciar()
+	game.start()
+}
