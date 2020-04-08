@@ -1,5 +1,6 @@
 import wollok.game.*
 import objects.*
+import figuras.*
 
 //Usado para elementos estaticos y del escenario
 class Pared {

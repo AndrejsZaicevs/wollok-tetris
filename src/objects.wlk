@@ -1,13 +1,13 @@
 import wollok.game.*
 import clases.*
-import iterador.*
+import figuras.*
 
 object iniciador {
 	const paredes = []
 	method crearParedes(){
 		
 		//Inicio paredes del campo de juego
-		 iterador.iter(23).forEach({i => 
+		 (0 .. 23).forEach({i => 
 		 	paredes.add(new Pared(position = game.at(0,i)))
 		 	paredes.add(new Pared(position = game.at(11,i)))
 		 	//Genera paredes fuera del area visible pero Yao
@@ -15,8 +15,8 @@ object iniciador {
 		 })
 		 
 		 //Inicio paredes de la derecha
-		 iterador.iter(10).forEach({x =>
-		 	iterador.iter(23).forEach({y =>
+		 (0 .. 10).forEach({x =>
+		 	(0 .. 23).forEach({y =>
 		 		paredes.add(new Pared(position = game.at(x+12, y)))
 		 	})
 		 })
@@ -70,9 +70,9 @@ object logicaPrincipal {
 		filas.forEach({fila =>
 			//por cada fila potencial me fijo si la tengo que eliminar
 			var eliminar = true
-			iterador.iter(10).forEach({i =>
+			(1 .. 11).forEach({i =>
 				//me fijo que cada casillero tenga algo
-				if(game.getObjectsIn(game.at(i+1, fila)).isEmpty()){
+				if(game.getObjectsIn(game.at(i, fila)).isEmpty()){
 					//hay por lo menos un casillero vacio, no elimino
 					eliminar = false
 				}
@@ -80,9 +80,9 @@ object logicaPrincipal {
 			if(eliminar){
 				//si llego aca es porque tengo filas a eliminar
 				filasEliminadas.add(fila)
-				iterador.iter(9).forEach({i =>
+				(1 .. 10).forEach({i =>
 					//elimino los bloques
-					game.getObjectsIn(game.at(i+1, fila)).forEach({bloque =>
+					game.getObjectsIn(game.at(i, fila)).forEach({bloque =>
 						bloque.eliminar()
 					})		
 				})
@@ -99,9 +99,9 @@ object logicaPrincipal {
 		filasAEliminar.forEach({filaAEliminar =>
 			bias += 1
 			//por cada que se elimino tengo que realizar un movimiento a cada bloque que se encuentre arriba
-			iterador.iter(9).forEach({columna =>
-				iterador.iter(23 - filaAEliminar).forEach({fila =>
-					game.getObjectsIn(game.at(columna+1, 23 - fila - bias)).forEach({bloque =>
+			(1 .. 10).forEach({columna =>
+				(filaAEliminar .. 23).forEach({fila => 
+					game.getObjectsIn(game.at(columna, fila - bias)).forEach({bloque =>
 						bloque.mover(0, -1)
 					})
 				})
@@ -168,142 +168,6 @@ object logicaPrincipal {
 	}
 }
 
-object figuraL{
-	const color = "naranja.png"
-	var primerBloque
-	
-	method instanciar(){
-		const bloquesActivos = []	
-		primerBloque = new Bloque(position = game.at(5, 20), imagen = color)
-		bloquesActivos.add(primerBloque)
-		bloquesActivos.add(new Bloque(position = game.at(6, 20), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 20), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 19), imagen = color))
-		return bloquesActivos
-	}
-	
-	method primerBloque() = primerBloque
-}
-
-object figuraCuadrado{
-	const color = "amarillo.png"
-	var primerBloque
-	
-	method instanciar(){
-		const bloquesActivos = []
-		primerBloque = new Bloque(position = game.at(5, 20), imagen = color)
-		bloquesActivos.add(primerBloque)
-		bloquesActivos.add(new Bloque(position = game.at(6, 21), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(5, 21), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(6, 20), imagen = color))
-		return bloquesActivos
-	}
-	
-	method primerBloque() = primerBloque
-}
-
-object figuraLargo{
-	const color = "celeste.png"
-	var primerBloque
-	
-	method instanciar(){
-		const bloquesActivos = []
-		primerBloque = new Bloque(position = game.at(5, 20), imagen = color)
-		bloquesActivos.add(primerBloque)
-		bloquesActivos.add(new Bloque(position = game.at(5, 21), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(5, 19), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(5, 18), imagen = color))
-		return bloquesActivos
-	}
-	
-	method primerBloque() = primerBloque
-}
-object figuraLInvertido{
-	const color = "azul.png"
-	var primerBloque
-	
-	method instanciar(){
-		const bloquesActivos = []
-		primerBloque = new Bloque(position = game.at(5, 20), imagen = color)
-		bloquesActivos.add(primerBloque)
-		bloquesActivos.add(new Bloque(position = game.at(6, 20), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 20), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 21), imagen = color))
-		return bloquesActivos
-	}
-	
-	method primerBloque() = primerBloque
-}
-object figuraT{
-	const color = "violeta.png"
-	var primerBloque
-	
-	method instanciar(){
-		const bloquesActivos = []
-		primerBloque = new Bloque(position = game.at(5, 20), imagen = color)
-		bloquesActivos.add(primerBloque)
-		bloquesActivos.add(new Bloque(position = game.at(6, 20), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 20), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(5, 21), imagen = color))
-		return bloquesActivos
-	}
-	
-	method primerBloque() = primerBloque
-}
-object figuraS{
-	const color = "verde.png"
-	var primerBloque
-	
-	method instanciar(){
-		const bloquesActivos = []
-		primerBloque = new Bloque(position = game.at(5, 20), imagen = color)
-		bloquesActivos.add(primerBloque)
-		bloquesActivos.add(new Bloque(position = game.at(5, 21), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 20), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 19), imagen = color))
-		return bloquesActivos
-	}
-	
-	method primerBloque() = primerBloque
-}
-object figuraSInvertido{
-	const color = "rojo.png"
-	var primerBloque
-	
-	method instanciar(){
-		const bloquesActivos = []
-		primerBloque = new Bloque(position = game.at(5, 20), imagen = color)
-		bloquesActivos.add(primerBloque)
-		bloquesActivos.add(new Bloque(position = game.at(5, 19), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 20), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 21), imagen = color))
-		return bloquesActivos
-	}
-	
-	method primerBloque() = primerBloque
-}
-
-object figuras{
-	method randomFigura(){
-		const numero = 1.randomUpTo(7).roundUp() - 1
-		if(numero == 0){
-			return figuraL
-		}else if(numero == 1){
-			return figuraLInvertido
-		}else if(numero == 2){
-			return figuraS
-		}else if(numero == 3){
-			return figuraSInvertido
-		}else if(numero == 4){
-			return figuraT
-		}else if(numero == 5){
-			return figuraCuadrado
-		}else{
-			return figuraLargo
-		}
-	}
-	
-}
 
 object puntuaje{
 	var puntos = 0
@@ -313,6 +177,3 @@ object puntuaje{
 		console.println(puntos)
 	}
 }
-
-
-
