@@ -38,13 +38,17 @@ object iniciador {
 
 object logicaPrincipal {
 	
-	var figura
-	var ultimoTiro = 0
-	var velocidad = 0
+	var figura //Guarda la abstraccion de la figura activa
+	var ultimoTiro = 0 //Distancia de la cual se tiro una pieza por ultima vez
+	var velocidad = 0 //Velocidad actual del juego
+	var alturaMax = 0 //Altura del bloque mas alto
 	
+	//Inicia la logica
 	method iniciar(){
+		//Objeto iniciador dibuja las paredes necesarias
 		iniciador.crearParedes()
 		iniciador.dibujarParedes()
+		//Objeto figura es la abtraccion de los bloques activos
 		figura = new Figura()
 		figura.instanciar(figuras.randomFigura())
 		game.onTick(750, "bajar figura",{
@@ -53,10 +57,19 @@ object logicaPrincipal {
 		self.iniciarControles()
 	}
 	
+	//Desactiva la figura cuando cae
 	method desactivarFigura(){
 		//obtengo las filas que abarca la pieza
 		var filas = figura.filasActivas()		
 		figura.desactivar()
+		
+		//veo si hace falta modifica el bloque mas alto, lo hago por cada fila involucrada
+		
+		filas.forEach({fila => 
+			if(fila > alturaMax){
+				alturaMax = fila
+			}	
+		})
 		
 		//me fijo que filas de las que abarcaba la pieza tengo que eliminar
 		self.eliminarFilas(filas)
@@ -64,10 +77,12 @@ object logicaPrincipal {
 		self.nuevaFigura()
 	}
 	
+	//Metodo que se fija que filas fueron afectadas cuando cae una pieza, y borra las que sea necesario borrar. Despues invoca reacomodarFilas para bajar las que esten arriba
 	method eliminarFilas(filas){
+		
 		//me guardo que filas tengo que eliminar
 		var filasEliminadas = []
-		filas.forEach({fila =>
+		filas.forEach({fila =>	
 			//por cada fila potencial me fijo si la tengo que eliminar
 			var eliminar = true
 			(1 .. 11).forEach({i =>
@@ -78,7 +93,6 @@ object logicaPrincipal {
 				}
 			})
 			if(eliminar){
-				//si llego aca es porque tengo filas a eliminar
 				filasEliminadas.add(fila)
 				(1 .. 10).forEach({i =>
 					//elimino los bloques
@@ -88,33 +102,41 @@ object logicaPrincipal {
 				})
 			}
 		})	
+		
 		// necesito bajar las filas de arriba
 		self.reacomodarFilas(filasEliminadas)
+		
 		// sumo los puntos
 		puntuaje.sumarPuntos(ultimoTiro, velocidad, filasEliminadas.size())
 	}
 	
+	//Reacomodar filas, pendiente optimizar
 	method reacomodarFilas(filasAEliminar){
 		var bias = -1
-		filasAEliminar.forEach({filaAEliminar =>
+		filasAEliminar.forEach({filaAEliminar =>			
 			bias += 1
 			//por cada que se elimino tengo que realizar un movimiento a cada bloque que se encuentre arriba
 			(1 .. 10).forEach({columna =>
-				(filaAEliminar .. 23).forEach({fila => 
+				//Me fijo de reacomodar solamente desde la fila que se elimino, hasta la altura maxima que tienen los bloques
+				//No empiezo de la fila a eliminar porque se elimino
+				(filaAEliminar + 1 .. alturaMax).forEach({fila => 
 					game.getObjectsIn(game.at(columna, fila - bias)).forEach({bloque =>
 						bloque.mover(0, -1)
 					})
 				})
 			})
 		})
+		alturaMax -= filasAEliminar.size()
 	}
 	
+	//Metodo que instancia una nueva figura
 	method nuevaFigura(){
 		
 		figura = new Figura()
 		figura.instanciar(figuras.randomFigura())
 	}
 	
+	//Metodo que se invoca por tick de "bajar figura"
 	method bajarFigura(){
 		if(figura.ver(0, -1)){
 			figura.mover(0, -1)
@@ -130,6 +152,7 @@ object logicaPrincipal {
 		})
 	}
 	
+	//Inicia los controles de la figura
 	method iniciarControles(){
 		keyboard.left().onPressDo {
 			if(figura.ver(-1, 0)){
@@ -155,6 +178,7 @@ object logicaPrincipal {
 		}
 	}
 	
+	//No funciona correctamente TODO
 	method pararControles(){
 		keyboard.left().onPressDo {}		
 		keyboard.right().onPressDo {}		
@@ -162,6 +186,7 @@ object logicaPrincipal {
 		keyboard.down().onPressDo{}
 	}
 	
+	//Metodo que se invoca cuando la nueva pieza que entra se superpone con un bloque ya existente
 	method derrota(){
 		game.removeTickEvent("bajar figura")
 		self.pararControles()
