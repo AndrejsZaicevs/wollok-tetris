@@ -8,20 +8,11 @@ object iniciador {
 		
 		//Inicio paredes del campo de juego
 		 (0 .. 23).forEach({i => 
-		 	paredes.add(new Pared(position = game.at(0,i)))
-		 	paredes.add(new Pared(position = game.at(11,i)))
+		 	paredes.add(new Bloque(position = game.at(0,i), activo = false))
+		 	paredes.add(new Bloque(position = game.at(11,i), activo = false))
 		 	//Genera paredes fuera del area visible pero Yao
-		 	paredes.add(new Pared(position = game.at(i,0)))
-		 })
-		 
-		 //Inicio paredes de la derecha
-		 (0 .. 10).forEach({x =>
-		 	(0 .. 23).forEach({y =>
-		 		paredes.add(new Pared(position = game.at(x+12, y)))
-		 	})
-		 })
-		 
-		 
+		 	paredes.add(new Bloque(position = game.at(i,0), activo = false))
+		 })	 
 	}
 	
 	method dibujarParedes(){
@@ -30,10 +21,7 @@ object iniciador {
 		game.getObjectsIn(game.at(14,20)).forEach({pared =>
 			pared.image("puntos.png")
 		})
-	}
-	
-	
-	
+	}	
 }
 
 object logicaPrincipal {

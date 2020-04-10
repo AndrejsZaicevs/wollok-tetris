@@ -2,31 +2,11 @@ import wollok.game.*
 import objects.*
 import figuras.*
 
-//Usado para elementos estaticos y del escenario
-class Pared {
-	var property position = game.center()
-	var imagen = "pared.png"
-	method image() = imagen
-	
-	method esActivo(){
-		return false
-	}
-	
-	method eliminar(){
-		game.removeVisual(self)
-	}
-	
-	method image(im){
-		imagen = im
-	}
-	
-}
-
 //Usado para bloques moviles y para bloques que fueron desactivados
 class Bloque {
 	
 	var activo = true
-	var imagen = "blanco.png"
+	var imagen = "pared.png"
 	
 	var property position = game.at(5, 10)
 	method image() = imagen
