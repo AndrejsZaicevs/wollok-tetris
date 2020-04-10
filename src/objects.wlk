@@ -29,7 +29,7 @@ object logicaPrincipal {
 	var figura //Guarda la abstraccion de la figura activa
 	var ultimoTiro = 0 //Distancia de la cual se tiro una pieza por ultima vez
 	var velocidad = 0 //Velocidad actual del juego
-	var alturaMax = 0 //Altura del bloque mas alto
+	var alturaMax = 1 //Altura del bloque mas alto
 	
 	//Inicia la logica
 	method iniciar(){
@@ -159,6 +159,7 @@ object logicaPrincipal {
 		}
 		
 		keyboard.down().onPressDo{
+			figura.mover(0, -(figura.bloqueMasBajo() - alturaMax) + 1)
 			ultimoTiro = figura.encontrarFondo()
 			figura.mover(0, ultimoTiro)
 			self.desactivarFigura()

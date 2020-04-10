@@ -143,6 +143,16 @@ class Figura {
 		}
 	}
 	
+	method bloqueMasBajo(){
+		var bloqueMasBajo = 24
+		bloquesActivos.forEach({bloque => 
+			if(bloque.fila() < bloqueMasBajo){
+				bloqueMasBajo = bloque.fila()
+			}
+		})	
+		return bloqueMasBajo
+	}
+	
 	method girar(){
 		var centroX = bloquePrincipal.columna()
 		var centroY = bloquePrincipal.fila()
