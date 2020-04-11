@@ -30,6 +30,7 @@ object logicaPrincipal {
 	var ultimoTiro = 0 //Distancia de la cual se tiro una pieza por ultima vez
 	var velocidad = 0 //Velocidad actual del juego
 	var alturaMax = 1 //Altura del bloque mas alto
+	var derrota = false
 	
 	//Inicia la logica
 	method iniciar(){
@@ -119,9 +120,20 @@ object logicaPrincipal {
 	
 	//Metodo que instancia una nueva figura
 	method nuevaFigura(){
-		
-		figura = new Figura()
-		figura.instanciar(figuras.randomFigura())
+		if(!derrota){
+			figura = new Figura()
+			figura.instanciar(figuras.randomFigura())
+			
+					
+			//accelero el juego
+			if(!derrota){
+				velocidad += 5
+				game.removeTickEvent("bajar figura")
+				game.onTick(750 - velocidad, "bajar figura",{
+					self.bajarFigura()
+				})
+			}
+		}
 	}
 	
 	//Metodo que se invoca por tick de "bajar figura"
@@ -131,13 +143,6 @@ object logicaPrincipal {
 		}else{
 			self.desactivarFigura()
 		}
-		
-		//accelero el juego
-		velocidad += 1
-		game.removeTickEvent("bajar figura")
-		game.onTick(750 - velocidad, "bajar figura",{
-			self.bajarFigura()
-		})
 	}
 	
 	//Inicia los controles de la figura
@@ -162,23 +167,14 @@ object logicaPrincipal {
 			figura.mover(0, -(figura.bloqueMasBajo() - alturaMax) + 1)
 			ultimoTiro = figura.encontrarFondo()
 			figura.mover(0, ultimoTiro)
-			self.desactivarFigura()
-			
+			self.desactivarFigura()	
 		}
-	}
-	
-	//No funciona correctamente TODO
-	method pararControles(){
-		keyboard.left().onPressDo {}		
-		keyboard.right().onPressDo {}		
-		keyboard.up().onPressDo{}		
-		keyboard.down().onPressDo{}
 	}
 	
 	//Metodo que se invoca cuando la nueva pieza que entra se superpone con un bloque ya existente
 	method derrota(){
+		derrota = true
 		game.removeTickEvent("bajar figura")
-		self.pararControles()
 	}
 }
 
