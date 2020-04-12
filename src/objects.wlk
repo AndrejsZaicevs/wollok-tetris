@@ -103,6 +103,7 @@ object logicaPrincipal {
 
 	method reacomodarFilas(filasAEliminar){
 		var bias = 1
+		var size = filasAEliminar.size()
 		//Empiezo desde filaElim (que es la fila mas baja a eliminar), la saco afuera del forEach porque no la puedo sacar una vez adentro
 		var filaElim = filasAEliminar.min()
 		filasAEliminar.remove(filasAEliminar.min())
@@ -131,7 +132,7 @@ object logicaPrincipal {
 			
 		})
 		
-		alturaMax -= filasAEliminar.size()
+		alturaMax -= size
 	}
 	
 	//Metodo que instancia una nueva figura
