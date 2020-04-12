@@ -93,29 +93,43 @@ object logicaPrincipal {
 		})	
 		
 		// necesito bajar las filas de arriba
-		self.reacomodarFilas(filasEliminadas)
+		if(filasEliminadas.size() > 0){
+			self.reacomodarFilas(filasEliminadas)
+		}	
 		
 		// sumo los puntos
 		puntuaje.sumarPuntos(ultimoTiro, velocidad, filasEliminadas.size())
 	}
 	
-	//Reacomodar filas, pendiente optimizar
 	method reacomodarFilas(filasAEliminar){
-		var bias = -1
-		filasAEliminar.forEach({filaAEliminar =>			
-			bias += 1
-			//por cada que se elimino tengo que realizar un movimiento a cada bloque que se encuentre arriba
-			(1 .. 10).forEach({columna =>
-				//Me fijo de reacomodar solamente desde la fila que se elimino, hasta la altura maxima que tienen los bloques
-				//No empiezo de la fila a eliminar porque se elimino
-				(filaAEliminar + 1 .. alturaMax).forEach({fila => 
-					game.getObjectsIn(game.at(columna, fila - bias)).forEach({bloque =>
-						bloque.mover(0, -1)
+		var bias = 1
+		//Empiezo desde filaElim (que es la fila mas baja a eliminar), la saco afuera del forEach porque no la puedo sacar una vez adentro
+		var filaElim = filasAEliminar.min()
+		filasAEliminar.remove(filasAEliminar.min())
+		//Me fijo todas las filas desde la fila a reubicar mas baja + 1 hasta la fila mas alta
+		(filaElim + 1 .. alturaMax).forEach({fila =>
+			
+			if(filasAEliminar.size() > 0){
+				var filaElim = filasAEliminar.min()
+			}
+			
+			if(filaElim == fila){
+				//Si la fila minima que queda dentro de "filasAEliminar" es en la que estoy parado, la saco de filasAEliminar y sumo 1 al bias
+				bias += 1
+				filasAEliminar.remove(filasAEliminar.min())
+			}else{
+				//console.println("Reubico fila " + fila + "con un bias de " + bias)
+				//Si la fila no es la misma, tengo que reubicar, y la reubico por el bias (si saltee 1 fila, lo muevo 1 abajo, si saltee 3, muevo 3 abajo)
+				(1 .. 10).forEach({columna =>
+					game.getObjectsIn(game.at(columna, fila)).forEach({bloque =>
+						bloque.mover(0, -bias)
 					})
 				})
-			})
+			}
+				
+			//Reubico, si es una fila eliminada no reubico ya que no hay nada para reubicar, sumo 1 al bias y voy a la siguiente fila
+			
 		})
-		alturaMax -= filasAEliminar.size()
 	}
 	
 	//Metodo que instancia una nueva figura
@@ -126,13 +140,11 @@ object logicaPrincipal {
 			
 					
 			//accelero el juego
-			if(!derrota){
-				velocidad += 5
-				game.removeTickEvent("bajar figura")
-				game.onTick(750 - velocidad, "bajar figura",{
-					self.bajarFigura()
-				})
-			}
+			velocidad += 5
+			game.removeTickEvent("bajar figura")
+			game.onTick(750 - velocidad, "bajar figura",{
+				self.bajarFigura()
+			})
 		}
 	}
 	
@@ -184,6 +196,6 @@ object puntuaje{
 	
 	method sumarPuntos(ultimoTiro, velocidad, lineasEliminadas){
 		puntos += (ultimoTiro.abs() + velocidad) * (lineasEliminadas + 1)
-		console.println(puntos)
+		//console.println(puntos)
 	}
 }
