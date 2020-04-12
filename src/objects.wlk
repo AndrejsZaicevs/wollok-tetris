@@ -100,7 +100,7 @@ object logicaPrincipal {
 		// sumo los puntos
 		puntuaje.sumarPuntos(ultimoTiro, velocidad, filasEliminadas.size())
 	}
-	
+
 	method reacomodarFilas(filasAEliminar){
 		var bias = 1
 		//Empiezo desde filaElim (que es la fila mas baja a eliminar), la saco afuera del forEach porque no la puedo sacar una vez adentro
@@ -130,6 +130,8 @@ object logicaPrincipal {
 			//Reubico, si es una fila eliminada no reubico ya que no hay nada para reubicar, sumo 1 al bias y voy a la siguiente fila
 			
 		})
+		
+		alturaMax -= filasAEliminar.size()
 	}
 	
 	//Metodo que instancia una nueva figura
