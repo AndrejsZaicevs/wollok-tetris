@@ -117,23 +117,8 @@ object figuraSInvertido{
 }
 
 object figuras{
-	method randomFigura(){
-		const numero = 1.randomUpTo(8).roundUp() - 1
-		if(numero == 1){
-			return figuraL
-		}else if(numero == 2){
-			return figuraLInvertido
-		}else if(numero == 3){
-			return figuraS
-		}else if(numero == 4){
-			return figuraSInvertido
-		}else if(numero == 5){
-			return figuraT
-		}else if(numero == 6){
-			return figuraCuadrado
-		}else{
-			return figuraLargo
-		}
-	}
+	const coleccionFiguras = [figuraL,figuraLInvertido,figuraS,figuraSInvertido,figuraT,figuraCuadrado,figuraLargo]
+	
+	method randomFigura() = coleccionFiguras.get(0.randomUpTo(coleccionFiguras.size()).roundUp() - 1)	
 	
 }
