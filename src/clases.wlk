@@ -5,15 +5,9 @@ import figuras.*
 //Usado para bloques moviles y para bloques que fueron desactivados
 class Bloque {
 	
-	var activo = true
-	var imagen = "pared.png"
-	
+	var activo = true	
 	var property position = game.at(5, 10)
-	method image() = imagen
-	
-	method image(im){
-		imagen = im
-	}
+	var property image = "pared.png"
 	
 	method esActivo() = activo
 	
@@ -67,6 +61,7 @@ class Figura {
 	var bloquesActivos = []
 	var bloquePrincipal
 	
+	
 	method instanciar(figura){
 		bloquesActivos = figura.instanciar()		
 		bloquePrincipal = figura.primerBloque()
@@ -85,8 +80,8 @@ class Figura {
 	method comprobarDerrota(){
 		var valido = true
 		bloquesActivos.forEach({bloque => 
-			var columna = bloque.columna()
-			var fila = bloque.fila()
+			const columna = bloque.columna()
+			const fila = bloque.fila()
 			
 			if(!game.getObjectsIn(game.at(columna, fila)).isEmpty()){
 				valido = false
@@ -154,8 +149,8 @@ class Figura {
 	}
 	
 	method girar(){
-		var centroX = bloquePrincipal.columna()
-		var centroY = bloquePrincipal.fila()
+		const centroX = bloquePrincipal.columna()
+		const centroY = bloquePrincipal.fila()
 		var valido = true
 		bloquesActivos.forEach({bloque => 
 			if(!bloque.verEn(centroX+(bloque.fila()-centroY), centroY+(centroX-bloque.columna()))){
