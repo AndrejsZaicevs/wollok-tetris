@@ -179,6 +179,10 @@ object logicaPrincipal {
 		}
 		
 		keyboard.down().onPressDo{
+			self.bajarFigura()
+		}
+		
+		keyboard.space().onPressDo{
 			figura.mover(0, -(figura.bloqueMasBajo() - alturaMax) + 1)
 			ultimoTiro = figura.encontrarFondo()
 			figura.mover(0, ultimoTiro)
