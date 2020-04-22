@@ -49,7 +49,7 @@ object logicaPrincipal {
 	//Desactiva la figura cuando cae
 	method desactivarFigura(){
 		//obtengo las filas que abarca la pieza
-		var filas = figura.filasActivas()		
+		const filas = figura.filasActivas()		
 		figura.desactivar()
 		
 		//veo si hace falta modifica el bloque mas alto, lo hago por cada fila involucrada
@@ -70,7 +70,7 @@ object logicaPrincipal {
 	method eliminarFilas(filas){
 		
 		//me guardo que filas tengo que eliminar
-		var filasEliminadas = []
+		const filasEliminadas = []
 		filas.forEach({fila =>	
 			//por cada fila potencial me fijo si la tengo que eliminar
 			var eliminar = true
@@ -103,16 +103,16 @@ object logicaPrincipal {
 
 	method reacomodarFilas(filasAEliminar){
 		var bias = 1
-		var size = filasAEliminar.size()
+		const size = filasAEliminar.size()
 		//Empiezo desde filaElim (que es la fila mas baja a eliminar), la saco afuera del forEach porque no la puedo sacar una vez adentro
 		var filaElim = filasAEliminar.min()
 		filasAEliminar.remove(filasAEliminar.min())
 		//Me fijo todas las filas desde la fila a reubicar mas baja + 1 hasta la fila mas alta
-		(filaElim + 1 .. alturaMax).forEach({fila =>
+		(filaElim + 1 .. alturaMax).forEach({fila =>		
 			
 			if(filasAEliminar.size() > 0){
-				var filaElim = filasAEliminar.min()
-			}
+				filaElim = filasAEliminar.min()
+			}		
 			
 			if(filaElim == fila){
 				//Si la fila minima que queda dentro de "filasAEliminar" es en la que estoy parado, la saco de filasAEliminar y sumo 1 al bias
@@ -187,7 +187,7 @@ object logicaPrincipal {
 	}
 	
 	//Metodo que se invoca cuando la nueva pieza que entra se superpone con un bloque ya existente
-	method derrota(){
+	method activarDerrota(){
 		derrota = true
 		game.removeTickEvent("bajar figura")
 	}

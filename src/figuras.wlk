@@ -7,11 +7,11 @@ object figuraL{
 	
 	method instanciar(){
 		const bloquesActivos = []	
-		primerBloque = new Bloque(position = game.at(5, 20), imagen = color)
+		primerBloque = new Bloque(position = game.at(5, 20), image = color)
 		bloquesActivos.add(primerBloque)
-		bloquesActivos.add(new Bloque(position = game.at(6, 20), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 20), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 19), imagen = color))
+		bloquesActivos.add(new Bloque(position = game.at(6, 20), image = color))
+		bloquesActivos.add(new Bloque(position = game.at(4, 20), image = color))
+		bloquesActivos.add(new Bloque(position = game.at(4, 19), image = color))
 		return bloquesActivos
 	}
 	
@@ -24,11 +24,11 @@ object figuraCuadrado{
 	
 	method instanciar(){
 		const bloquesActivos = []
-		primerBloque = new Bloque(position = game.at(5, 20), imagen = color)
+		primerBloque = new Bloque(position = game.at(5, 20), image = color)
 		bloquesActivos.add(primerBloque)
-		bloquesActivos.add(new Bloque(position = game.at(6, 21), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(5, 21), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(6, 20), imagen = color))
+		bloquesActivos.add(new Bloque(position = game.at(6, 21), image = color))
+		bloquesActivos.add(new Bloque(position = game.at(5, 21), image = color))
+		bloquesActivos.add(new Bloque(position = game.at(6, 20), image = color))
 		return bloquesActivos
 	}
 	
@@ -41,11 +41,11 @@ object figuraLargo{
 	
 	method instanciar(){
 		const bloquesActivos = []
-		primerBloque = new Bloque(position = game.at(5, 20), imagen = color)
+		primerBloque = new Bloque(position = game.at(5, 20), image = color)
 		bloquesActivos.add(primerBloque)
-		bloquesActivos.add(new Bloque(position = game.at(5, 21), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(5, 19), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(5, 18), imagen = color))
+		bloquesActivos.add(new Bloque(position = game.at(5, 21), image = color))
+		bloquesActivos.add(new Bloque(position = game.at(5, 19), image = color))
+		bloquesActivos.add(new Bloque(position = game.at(5, 18), image = color))
 		return bloquesActivos
 	}
 	
@@ -57,11 +57,11 @@ object figuraLInvertido{
 	
 	method instanciar(){
 		const bloquesActivos = []
-		primerBloque = new Bloque(position = game.at(5, 20), imagen = color)
+		primerBloque = new Bloque(position = game.at(5, 20), image = color)
 		bloquesActivos.add(primerBloque)
-		bloquesActivos.add(new Bloque(position = game.at(6, 20), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 20), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 21), imagen = color))
+		bloquesActivos.add(new Bloque(position = game.at(6, 20), image = color))
+		bloquesActivos.add(new Bloque(position = game.at(4, 20), image = color))
+		bloquesActivos.add(new Bloque(position = game.at(4, 21), image = color))
 		return bloquesActivos
 	}
 	
@@ -73,11 +73,11 @@ object figuraT{
 	
 	method instanciar(){
 		const bloquesActivos = []
-		primerBloque = new Bloque(position = game.at(5, 20), imagen = color)
+		primerBloque = new Bloque(position = game.at(5, 20), image = color)
 		bloquesActivos.add(primerBloque)
-		bloquesActivos.add(new Bloque(position = game.at(6, 20), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 20), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(5, 21), imagen = color))
+		bloquesActivos.add(new Bloque(position = game.at(6, 20), image = color))
+		bloquesActivos.add(new Bloque(position = game.at(4, 20), image = color))
+		bloquesActivos.add(new Bloque(position = game.at(5, 21), image = color))
 		return bloquesActivos
 	}
 	
@@ -89,11 +89,11 @@ object figuraS{
 	
 	method instanciar(){
 		const bloquesActivos = []
-		primerBloque = new Bloque(position = game.at(5, 20), imagen = color)
+		primerBloque = new Bloque(position = game.at(5, 20), image = color)
 		bloquesActivos.add(primerBloque)
-		bloquesActivos.add(new Bloque(position = game.at(5, 21), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 20), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 19), imagen = color))
+		bloquesActivos.add(new Bloque(position = game.at(5, 21), image = color))
+		bloquesActivos.add(new Bloque(position = game.at(4, 20), image = color))
+		bloquesActivos.add(new Bloque(position = game.at(4, 19), image = color))
 		return bloquesActivos
 	}
 	
@@ -105,11 +105,11 @@ object figuraSInvertido{
 	
 	method instanciar(){
 		const bloquesActivos = []
-		primerBloque = new Bloque(position = game.at(5, 20), imagen = color)
+		primerBloque = new Bloque(position = game.at(5, 20), image = color)
 		bloquesActivos.add(primerBloque)
-		bloquesActivos.add(new Bloque(position = game.at(5, 19), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 20), imagen = color))
-		bloquesActivos.add(new Bloque(position = game.at(4, 21), imagen = color))
+		bloquesActivos.add(new Bloque(position = game.at(5, 19), image = color))
+		bloquesActivos.add(new Bloque(position = game.at(4, 20), image = color))
+		bloquesActivos.add(new Bloque(position = game.at(4, 21), image = color))
 		return bloquesActivos
 	}
 	

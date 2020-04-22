@@ -68,7 +68,7 @@ class Figura {
 		
 		//Si no hay espacio para otro bloque es que esta en derrota
 		if(!self.comprobarDerrota()){
-			logicaPrincipal.derrota()
+			logicaPrincipal.activarDerrota()
 			console.println("Derrota")
 		}
 		// Lo dibujo de todos modos para demostrar que se superponen
