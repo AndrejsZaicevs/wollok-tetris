@@ -1,6 +1,12 @@
 import wollok.game.*
 import clases.*
 
+object figuras{
+	const coleccionFiguras = [figuraL,figuraLInvertido,figuraS,figuraSInvertido,figuraT,figuraCuadrado,figuraLargo]
+	
+	method randomFigura() = coleccionFiguras.get(0.randomUpTo(coleccionFiguras.size()).roundUp() - 1)		
+}
+
 object figuraL{
 	const color = "naranja.png"
 	var primerBloque
@@ -114,11 +120,4 @@ object figuraSInvertido{
 	}
 	
 	method primerBloque() = primerBloque
-}
-
-object figuras{
-	const coleccionFiguras = [figuraL,figuraLInvertido,figuraS,figuraSInvertido,figuraT,figuraCuadrado,figuraLargo]
-	
-	method randomFigura() = coleccionFiguras.get(0.randomUpTo(coleccionFiguras.size()).roundUp() - 1)	
-	
 }

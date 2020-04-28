@@ -9,49 +9,29 @@ class Bloque {
 	var property position = game.at(5, 10)
 	var property image = "pared.png"
 	
-	method esActivo() = activo
+	method esActivo() = activo	
+	method desactivar(){ activo = false }
 	
-	method desactivar(){
-		activo = false
-	}
-	
-	//Devuelve si un movimiento abajo es valido o no
+	//Devuelve si un moviento en coordenadas relativas es valido
 	method ver(x, y){
 		const objetos = game.getObjectsIn(game.at(position.x() + x, position.y() + y))
-		var valido = true
-		objetos.forEach({objeto => 
-			if(!objeto.esActivo()){
-				valido = false
-			}
-		})
-		return valido
+		return objetos.all({bloque => bloque.esActivo()})
 	}
 	
-	method mover(x, y){
-		position = game.at(position.x() + x, position.y() + y)
-	}
-	
-	method moverA(x, y){
-		position = game.at(x, y)
-	}
-	
+	//Devuelve si un moviento en coordenadas absolutas es valido
 	method verEn(x, y){
 		const objetos = game.getObjectsIn(game.at(x, y))
-		var valido = true
-		objetos.forEach({objeto => 
-			if(!objeto.esActivo()){
-				valido = false
-			}
-		})
-		return valido
+		return objetos.all({bloque => bloque.esActivo()})
 	}
+	
+	//Mover relativo
+	method mover(x, y){ position = game.at(position.x() + x, position.y() + y) }	
+	//Mover absoluto
+	method moverA(x, y){ position = game.at(x, y) }
 	
 	method columna() = position.x()
 	method fila() = position.y()
-	
-	method eliminar(){
-		game.removeVisual(self)
-	}
+	method eliminar(){ game.removeVisual(self) }
 }
 
 
@@ -77,6 +57,8 @@ class Figura {
 		})
 	}
 	
+	
+	//Combprueba si no hay bloques donde se va a instanciar la figura
 	method comprobarDerrota(){
 		var valido = true
 		bloquesActivos.forEach({bloque => 
@@ -90,15 +72,7 @@ class Figura {
 		return valido
 	}
 	
-	method ver(x, y){
-		var valido = true
-		bloquesActivos.forEach({bloque => 
-			if(!bloque.ver(x, y)){
-				valido = false
-			}
-		})	
-		return valido
-	}
+	method ver(x, y) = bloquesActivos.all({bloque => bloque.ver(x,y)})
 	
 	method mover(x, y){
 		bloquesActivos.forEach({bloque =>
@@ -163,7 +137,5 @@ class Figura {
 			})
 		}
 	}
-
-	
 }
 

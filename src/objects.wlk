@@ -67,8 +67,7 @@ object logicaPrincipal {
 	}
 	
 	//Metodo que se fija que filas fueron afectadas cuando cae una pieza, y borra las que sea necesario borrar. Despues invoca reacomodarFilas para bajar las que esten arriba
-	method eliminarFilas(filas){
-		
+	method eliminarFilas(filas){	
 		//me guardo que filas tengo que eliminar
 		const filasEliminadas = []
 		filas.forEach({fila =>	
@@ -140,8 +139,7 @@ object logicaPrincipal {
 		if(!derrota){
 			figura = new Figura()
 			figura.instanciar(figuras.randomFigura())
-			
-					
+	
 			//accelero el juego
 			velocidad += 5
 			game.removeTickEvent("bajar figura")
@@ -174,13 +172,8 @@ object logicaPrincipal {
 			}
 		}
 		
-		keyboard.up().onPressDo{
-			figura.girar()
-		}
-		
-		keyboard.down().onPressDo{
-			self.bajarFigura()
-		}
+		keyboard.up().onPressDo{ figura.girar() }		
+		keyboard.down().onPressDo{ self.bajarFigura() }
 		
 		keyboard.space().onPressDo{
 			figura.mover(0, -(figura.bloqueMasBajo() - alturaMax) + 1)
