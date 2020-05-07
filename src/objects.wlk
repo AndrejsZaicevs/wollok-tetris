@@ -175,8 +175,12 @@ object logicaPrincipal {
 		keyboard.up().onPressDo{ figura.girar() }		
 		keyboard.down().onPressDo{ self.bajarFigura() }
 		
+		
 		keyboard.space().onPressDo{
-			figura.mover(0, -(figura.bloqueMasBajo() - alturaMax) + 1)
+			const bloqueMasBajo = figura.bloqueMasBajo() 
+			if(bloqueMasBajo > alturaMax){
+				figura.mover(0, -(bloqueMasBajo - alturaMax) + 1)	
+			}
 			ultimoTiro = figura.encontrarFondo()
 			figura.mover(0, ultimoTiro)
 			self.desactivarFigura()	
