@@ -94,6 +94,8 @@ object logicaPrincipal {
 		// necesito bajar las filas de arriba
 		if(filasEliminadas.size() > 0){
 			self.reacomodarFilas(filasEliminadas)
+			//accelero el juego
+			velocidad += filasEliminadas.size()*2
 		}	
 		
 		// sumo los puntos
@@ -127,12 +129,11 @@ object logicaPrincipal {
 				})
 			}
 				
-			//Reubico, si es una fila eliminada no reubico ya que no hay nada para reubicar, sumo 1 al bias y voy a la siguiente fila
-			
+			//Reubico, si es una fila eliminada no reubico ya que no hay nada para reubicar, sumo 1 al bias y voy a la siguiente fila	
 		})
-		
 		alturaMax -= size
 	}
+	
 	
 	//Metodo que instancia una nueva figura
 	method nuevaFigura(){
@@ -140,8 +141,6 @@ object logicaPrincipal {
 			figura = new Figura()
 			figura.instanciar(figuras.randomFigura())
 	
-			//accelero el juego
-			velocidad += 5
 			game.removeTickEvent("bajar figura")
 			game.onTick(750 - velocidad, "bajar figura",{
 				self.bajarFigura()
