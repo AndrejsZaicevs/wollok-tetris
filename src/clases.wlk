@@ -40,7 +40,7 @@ class Figura {
 	
 	var bloquesActivos = []
 	var bloquePrincipal
-	
+	var bloquesBajos = []
 	
 	method instanciar(figura){
 		bloquesActivos = figura.instanciar()		
@@ -55,6 +55,8 @@ class Figura {
 		bloquesActivos.forEach({bloque =>
 			game.addVisual(bloque)
 		})
+		
+		self.obtenerBloquesBajos()
 	}
 	
 	
@@ -73,6 +75,10 @@ class Figura {
 	}
 	
 	method ver(x, y) = bloquesActivos.all({bloque => bloque.ver(x,y)})
+	
+	//Como el ver normal todavia se utiliza para girar, no lo puedo reemplazar para la optimizacion.
+	//El verOptimizado se utiliza para bajar bloques, ya que solo se fija los bloques mas bajos por columna de la figura
+	method verOptimizado(x,y) = bloquesBajos.all({bloque => bloque.ver(x,y)})
 	
 	method mover(x, y){
 		bloquesActivos.forEach({bloque =>
@@ -97,7 +103,7 @@ class Figura {
 	}
 	
 	method encontrarFondo(){
-		if(self.ver(0, -1)){
+		if(self.verOptimizado(0, -1)){
 			return self.verMasAbajo(-1)
 		}else{
 			return 0
@@ -105,7 +111,7 @@ class Figura {
 	}
 	
 	method verMasAbajo(num){
-		if(self.ver(0, num)){
+		if(self.verOptimizado(0, num)){
 			return self.verMasAbajo(num-1)
 		}else{
 			return num+1
@@ -136,6 +142,30 @@ class Figura {
 				bloque.moverA(centroX+(bloque.fila()-centroY), centroY+(centroX-bloque.columna()))
 			})
 		}
+		
+		//Calculo los bloques bajos durante la rotacion para hacer lo menos posible durante la caida (ya que es uno de los momentos computacionalmente mas pesados)
+		self.obtenerBloquesBajos()
+	}
+	
+	//Obtengo los bloques mas bajos por cada columna para despues hacer el calculo cuando baja la figura (no es necesario saber si los bloque mas altos colisionan con algo al bajar)
+	//Si fuera a agregar bloques convexos no se podria hacer esta optimizacion
+	//Ejemplo de un bloque convexo
+	// **
+	//  *
+	// **
+	method obtenerBloquesBajos(){
+		const columnas = #{}
+		bloquesActivos.forEach({bloque =>
+			columnas.add(bloque.columna())
+		})
+		
+		bloquesBajos = []
+		
+		columnas.forEach({columna =>
+			bloquesBajos.add(bloquesActivos.filter({bloque => bloque.columna() == columna}).min({bloque =>
+				bloque.fila()
+			}))
+		})
 	}
 }
 
