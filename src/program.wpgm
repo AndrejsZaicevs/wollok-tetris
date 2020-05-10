@@ -5,8 +5,8 @@ import objects.*
 program tetris {
 	game.width(23)
 	game.height(22)
-	game.cellSize(36)
-	game.boardGround("negro.png")
+	game.cellSize(40)
+	game.boardGround("fondo.png")
 	logicaPrincipal.iniciar()
 	game.start()
 }

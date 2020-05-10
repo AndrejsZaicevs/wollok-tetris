@@ -27,14 +27,14 @@ object logicaPrincipal {
 	method nuevaFigura(){
 		if(!derrota){
 			figura = figuraSiguiente
-			figura.mover(-9, 1)
+			figura.mover(-9, 2)
 			self.nuevaFiguraSiguiente()
 		}
 	}
 	
 	method nuevaFiguraSiguiente(){
 		figuraSiguiente = new Figura()
-		figuraSiguiente.instanciar(figuras.randomFigura(), 14 ,19)
+		figuraSiguiente.instanciar(figuras.randomFigura(), 14 ,18)
 	}
 	
 	method crearParedes(){
