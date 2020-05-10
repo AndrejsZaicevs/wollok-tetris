@@ -42,8 +42,8 @@ class Figura {
 	var bloquePrincipal
 	var bloquesBajos = []
 	
-	method instanciar(figura){
-		bloquesActivos = figura.instanciar()		
+	method instanciar(figura, x, y){
+		bloquesActivos = figura.instanciar(x, y)		
 		bloquePrincipal = bloquesActivos.first()
 		
 		//Si no hay espacio para otro bloque es que esta en derrota

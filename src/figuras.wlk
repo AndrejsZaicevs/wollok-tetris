@@ -9,10 +9,8 @@ object figuras{
 
 object figuraL{
 	const color = "naranja.png"
-	const x = 5
-	const y = 20
 	
-	method instanciar(){
+	method instanciar(x, y){
 		const bloquesActivos = []	
 		bloquesActivos.add(new Bloque(position = game.at(x, y), image = color))
 		bloquesActivos.add(new Bloque(position = game.at(x+1,y), image = color))
@@ -24,10 +22,8 @@ object figuraL{
 
 object figuraCuadrado{
 	const color = "amarillo.png"
-	const x = 5
-	const y = 20
-	
-	method instanciar(){
+
+	method instanciar(x, y){
 		const bloquesActivos = []
 		bloquesActivos.add(new Bloque(position = game.at(x, y), image = color))
 		bloquesActivos.add(new Bloque(position = game.at(x+1,y+1), image = color))
@@ -39,10 +35,8 @@ object figuraCuadrado{
 
 object figuraLargo{
 	const color = "celeste.png"
-	const x = 5
-	const y = 20
 
-	method instanciar(){
+	method instanciar(x, y){
 		const bloquesActivos = []
 		bloquesActivos.add(new Bloque(position = game.at(x, y), image = color))
 		bloquesActivos.add(new Bloque(position = game.at(x, y+1), image = color))
@@ -53,10 +47,8 @@ object figuraLargo{
 }
 object figuraLInvertido{
 	const color = "azul.png"
-	const x = 5
-	const y = 20
 	
-	method instanciar(){
+	method instanciar(x, y){
 		const bloquesActivos = []
 		bloquesActivos.add(new Bloque(position = game.at(x, y), image = color))
 		bloquesActivos.add(new Bloque(position = game.at(x+1, y), image = color))
@@ -66,11 +58,9 @@ object figuraLInvertido{
 	}
 }
 object figuraT{
-	const color = "violeta.png"
-	const x = 5
-	const y = 20
+	const color = "violeta.png"	
 	
-	method instanciar(){
+	method instanciar(x, y){
 		const bloquesActivos = []
 		bloquesActivos.add(new Bloque(position = game.at(x, y), image = color))
 		bloquesActivos.add(new Bloque(position = game.at(x+1, y), image = color))
@@ -81,10 +71,8 @@ object figuraT{
 }
 object figuraS{
 	const color = "verde.png"
-	const x = 5
-	const y = 20
 	
-	method instanciar(){
+	method instanciar(x, y){
 		const bloquesActivos = []
 		bloquesActivos.add(new Bloque(position = game.at(x, y), image = color))
 		bloquesActivos.add(new Bloque(position = game.at(x, y+1), image = color))
@@ -95,10 +83,8 @@ object figuraS{
 }
 object figuraSInvertido{
 	const color = "rojo.png"
-	const x = 5
-	const y = 20
 	
-	method instanciar(){
+	method instanciar(x, y){
 		const bloquesActivos = []
 		bloquesActivos.add(new Bloque(position = game.at(x, y), image = color))
 		bloquesActivos.add(new Bloque(position = game.at(x, y-1), image = color))
