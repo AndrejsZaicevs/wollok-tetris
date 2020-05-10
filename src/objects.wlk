@@ -18,6 +18,7 @@ object logicaPrincipal {
 		self.crearParedes()
 		self.nuevaFigura()
 		self.iniciarControles()
+		game.onTick(750, "bajar figura",{ self.bajarFigura() })
 	}
 	
 	method crearParedes(){
@@ -69,12 +70,10 @@ object logicaPrincipal {
 				})
 			}
 		})	
+		// acelero el juego
+		self.acelerar(filasEliminadas.size() * 3)
 		// necesito bajar las filas de arriba
-		if(filasEliminadas.size() > 0){
-			self.reacomodarFilas(filasEliminadas)
-			//accelero el juego
-			velocidad += filasEliminadas.size()*2
-		}		
+		if(filasEliminadas.size() > 0){ self.reacomodarFilas(filasEliminadas) }		
 		// sumo los puntos
 		puntuaje.sumarPuntos(ultimoTiro, velocidad, filasEliminadas.size())	
 	}
@@ -115,12 +114,14 @@ object logicaPrincipal {
 		if(!derrota){
 			figura = new Figura()
 			figura.instanciar(figuras.randomFigura(), 5 ,20)
-			if(iniciado and !derrota) {game.removeTickEvent("bajar figura")}
-			iniciado = true
-			game.onTick(750 - velocidad, "bajar figura",{
-				self.bajarFigura()
-			})
 		}
+	}
+	
+	//Acelera la velocidad del juego
+	method acelerar(dif){
+		velocidad += dif
+		game.removeTickEvent("bajar figura")
+		game.onTick(750 - velocidad, "bajar figura",{ self.bajarFigura() })
 	}
 	
 	
