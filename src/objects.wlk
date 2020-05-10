@@ -2,27 +2,6 @@ import wollok.game.*
 import clases.*
 import figuras.*
 
-object iniciador {
-	const paredes = []
-	method crearParedes(){
-		
-		//Inicio paredes del campo de juego
-		 (0 .. 23).forEach({i => 
-		 	paredes.add(new Bloque(position = game.at(0,i), activo = false))
-		 	paredes.add(new Bloque(position = game.at(11,i), activo = false))
-		 	//Genera paredes fuera del area visible pero Yao
-		 	paredes.add(new Bloque(position = game.at(i,0), activo = false))
-		 })	 
-	}
-	
-	method dibujarParedes(){
-		paredes.forEach({pared => game.addVisual(pared)})
-		
-		game.getObjectsIn(game.at(14,20)).forEach({pared =>
-			pared.image("puntos.png")
-		})
-	}	
-}
 
 object logicaPrincipal {
 	
@@ -36,10 +15,19 @@ object logicaPrincipal {
 	
 	//Inicia la logica
 	method iniciar(){
-		iniciador.crearParedes()
-		iniciador.dibujarParedes()
+		self.crearParedes()
 		self.nuevaFigura()
 		self.iniciarControles()
+	}
+	
+	method crearParedes(){
+		//Inicio paredes del campo de juego
+		 (0 .. 23).forEach({i => 
+		 	game.addVisual(new Bloque(position = game.at(0,i), activo = false))
+		 	game.addVisual(new Bloque(position = game.at(11,i), activo = false))
+		 	//Genera paredes fuera del area visible pero no importa
+		 	game.addVisual(new Bloque(position = game.at(i,0), activo = false))
+		 })	 
 	}
 
 	
