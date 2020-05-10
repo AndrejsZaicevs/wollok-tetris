@@ -44,7 +44,7 @@ class Figura {
 	
 	method instanciar(figura){
 		bloquesActivos = figura.instanciar()		
-		bloquePrincipal = figura.primerBloque()
+		bloquePrincipal = bloquesActivos.first()
 		
 		//Si no hay espacio para otro bloque es que esta en derrota
 		if(!self.comprobarDerrota()){
@@ -147,6 +147,16 @@ class Figura {
 		self.obtenerBloquesBajos()
 	}
 	
+	//Obtengo las columnas que abarca la figura
+	method obtenerColumnas(){
+		const columnas = #{}
+		bloquesActivos.forEach({bloque =>
+			columnas.add(bloque.columna())
+		})
+		
+		return columnas
+	}
+	
 	//Obtengo los bloques mas bajos por cada columna para despues hacer el calculo cuando baja la figura (no es necesario saber si los bloque mas altos colisionan con algo al bajar)
 	//Si fuera a agregar bloques convexos no se podria hacer esta optimizacion
 	//Ejemplo de un bloque convexo
@@ -154,15 +164,22 @@ class Figura {
 	//  *
 	// **
 	method obtenerBloquesBajos(){
-		const columnas = #{}
-		bloquesActivos.forEach({bloque =>
-			columnas.add(bloque.columna())
-		})
-		
 		bloquesBajos = []
-		
-		columnas.forEach({columna =>
-			bloquesBajos.add(bloquesActivos.filter({bloque => bloque.columna() == columna}).min({bloque =>
+		self.obtenerColumnas().forEach({columna =>
+			bloquesBajos.add(bloquesActivos.filter({bloque => 
+				bloque.columna() == columna
+			}).min({bloque =>
+				bloque.fila()
+			}))
+		})
+	}
+	
+	//Se utiliza en la logica principal para una optimizacion de tiro
+	method obtenerBloquesAltos(){
+		return self.obtenerColumnas().forEach({columna =>
+			bloquesBajos.add(bloquesActivos.filter({bloque => 
+				bloque.columna() == columna
+			}).max({bloque =>
 				bloque.fila()
 			}))
 		})

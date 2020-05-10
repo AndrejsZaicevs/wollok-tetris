@@ -100,6 +100,7 @@ object logicaPrincipal {
 		
 		// sumo los puntos
 		puntuaje.sumarPuntos(ultimoTiro, velocidad, filasEliminadas.size())
+		
 	}
 
 	method reacomodarFilas(filasAEliminar){
