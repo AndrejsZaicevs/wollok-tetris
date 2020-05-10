@@ -6,6 +6,7 @@ import figuras.*
 object logicaPrincipal {
 	
 	var figura //Guarda la abstraccion de la figura activa
+	var figuraSiguiente //Referencia a la figura siguiente
 	var ultimoTiro = 0 //Distancia de la cual se tiro una pieza por ultima vez
 	var velocidad = 0 //Velocidad actual del juego
 	var alturaMax = 1 //Altura del bloque mas alto
@@ -16,9 +17,24 @@ object logicaPrincipal {
 	//Inicia la logica
 	method iniciar(){
 		self.crearParedes()
+		self.nuevaFiguraSiguiente()
 		self.nuevaFigura()
 		self.iniciarControles()
 		game.onTick(750, "bajar figura",{ self.bajarFigura() })
+	}
+	
+	//Metodo que instancia una nueva figura
+	method nuevaFigura(){
+		if(!derrota){
+			figura = figuraSiguiente
+			figura.mover(-9, 1)
+			self.nuevaFiguraSiguiente()
+		}
+	}
+	
+	method nuevaFiguraSiguiente(){
+		figuraSiguiente = new Figura()
+		figuraSiguiente.instanciar(figuras.randomFigura(), 14 ,19)
 	}
 	
 	method crearParedes(){
@@ -108,14 +124,6 @@ object logicaPrincipal {
 		alturaMax -= size
 	}
 	
-	
-	//Metodo que instancia una nueva figura
-	method nuevaFigura(){
-		if(!derrota){
-			figura = new Figura()
-			figura.instanciar(figuras.randomFigura(), 5 ,20)
-		}
-	}
 	
 	//Acelera la velocidad del juego
 	method acelerar(dif){
